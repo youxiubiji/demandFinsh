@@ -27,6 +27,11 @@ onMounted(() => {
             alert("定位失败,定位系统失效");
             break;
         }
+      },
+      {
+        enableHighAcuracy: true, // 指示浏览器获取高精度的位置，默认为false
+        timeout: 5000, // 指定获取地理位置的超时时间，默认不限时，单位为毫秒
+        maximumAge: 3000, // 最长有效期，在重复获取地理位置时，此参数指定多久再次获取位置。
       }
     );
   } else {
@@ -44,6 +49,17 @@ onMounted(() => {
   );
   qqgeolocation.getLocation((res) => {
     console.log(res);
+  });
+
+  // 高德地图 https://lbs.amap.com/api/jsapi-v2/guide/services/geolocation
+  AMap.plugin("AMap.CitySearch", function () {
+    var citySearch = new AMap.CitySearch();
+    citySearch.getLocalCity(function (status, result) {
+      if (status === "complete" && result.info === "OK") {
+        console.log(result);
+        // 查询成功，result即为当前所在城市信息
+      }
+    });
   });
 });
 </script>

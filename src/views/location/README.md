@@ -67,3 +67,30 @@ qqgeolocation.getLocation((res) => {
   console.log(res);
 });
 ```
+
+## 高德定位
+
+```js
+
+// index.html
+  <script type="text/javascript">
+    window._AMapSecurityConfig = {
+      securityJsCode: '46c603fce222d016c84fc67fed784978',
+    }
+  </script>
+  <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=3f562e3c47c08b6c49dabf7a3c273288"></script>
+
+  //onMounted
+    AMap.plugin("AMap.CitySearch", function () {
+    var citySearch = new AMap.CitySearch();
+    citySearch.getLocalCity(function (status, result) {
+      if (status === "complete" && result.info === "OK") {
+        console.log(result);
+        // 查询成功，result即为当前所在城市信息
+      }
+    });
+  });
+```
+
+
+## [相关示例](https://github.com/youxiubiji/demandFinsh/tree/main/src/views/location/index.vue)
